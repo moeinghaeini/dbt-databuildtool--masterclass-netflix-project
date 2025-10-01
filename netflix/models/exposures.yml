@@ -1,0 +1,45 @@
+version: 2
+
+exposures:
+  - name: netflix_analytics_dashboard
+    description: "Main analytics dashboard for Netflix data insights"
+    type: dashboard
+    maturity: high
+    owner:
+      name: "Data Analytics Team"
+      email: "analytics@netflix.com"
+    url: "https://analytics.netflix.com/dashboard"
+    
+    depends_on:
+      - ref('mart_user_behavior')
+      - ref('mart_movie_performance')
+      - ref('mart_movie_releases')
+
+  - name: recommendation_engine_api
+    description: "API endpoint for recommendation engine"
+    type: application
+    maturity: medium
+    owner:
+      name: "ML Engineering Team"
+      email: "ml-engineering@netflix.com"
+    url: "https://api.netflix.com/recommendations"
+    
+    depends_on:
+      - ref('fct_ratings')
+      - ref('fct_genome_scores')
+      - ref('dim_movies')
+      - ref('dim_users')
+
+  - name: content_strategy_report
+    description: "Weekly content strategy report for executives"
+    type: report
+    maturity: high
+    owner:
+      name: "Content Strategy Team"
+      email: "content-strategy@netflix.com"
+    url: "https://reports.netflix.com/content-strategy"
+    
+    depends_on:
+      - ref('mart_movie_performance')
+      - ref('dim_movies')
+      - source('netflix', 'r_movies')

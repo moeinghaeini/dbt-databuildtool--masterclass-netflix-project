@@ -1,0 +1,66 @@
+models:
+  - name: mart_user_behavior
+    description: "Comprehensive user behavior analysis including rating patterns, activity levels, and genre preferences"
+    columns:
+      - name: user_id
+        description: "Unique user identifier"
+        tests:
+          - not_null
+          - unique
+      - name: total_ratings
+        description: "Total number of ratings given by the user"
+        tests:
+          - not_null
+      - name: avg_rating
+        description: "Average rating given by the user"
+        tests:
+          - not_null
+      - name: user_segment
+        description: "User classification based on activity level"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Heavy User', 'Regular User', 'Light User', 'Casual User']
+      - name: rating_behavior
+        description: "User's rating tendency classification"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['High Rater', 'Moderate Rater', 'Low Rater']
+      - name: favorite_genre
+        description: "Most frequently rated genre by the user"
+      - name: favorite_genre_ratings
+        description: "Number of ratings in the favorite genre"
+
+  - name: mart_movie_performance
+    description: "Movie performance metrics including ratings, popularity, and categorization"
+    columns:
+      - name: movie_id
+        description: "Unique movie identifier"
+        tests:
+          - not_null
+          - unique
+      - name: movie_title
+        description: "Movie title"
+        tests:
+          - not_null
+      - name: total_ratings
+        description: "Total number of ratings received"
+        tests:
+          - not_null
+      - name: avg_rating
+        description: "Average rating received"
+        tests:
+          - not_null
+      - name: movie_category
+        description: "Movie classification based on popularity and ratings"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Blockbuster', 'Popular', 'Well-Rated', 'Moderate', 'Niche']
+      - name: rating_consistency
+        description: "Consistency of ratings (how varied the ratings are)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Consistent', 'Mixed', 'Polarizing']

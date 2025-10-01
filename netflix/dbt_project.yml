@@ -32,7 +32,33 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   netflix:
     +materialized: view
+    staging:
+      +materialized: view
+      +docs:
+        node_color: "lightblue"
     dim:
       +materialized: table
+      +docs:
+        node_color: "lightgreen"
+      +pre_hook: "{{ log('Building dimension table: ' ~ this.name, info=true) }}"
     fct:
       +materialized: table
+      +docs:
+        node_color: "lightcoral"
+      +pre_hook: "{{ log('Building fact table: ' ~ this.name, info=true) }}"
+    mart:
+      +materialized: table
+      +docs:
+        node_color: "gold"
+      +pre_hook: "{{ log('Building mart table: ' ~ this.name, info=true) }}"
+
+# Performance optimizations
+vars:
+  # Enable performance optimizations
+  enable_performance_optimizations: true
+  
+  # Data quality thresholds
+  min_rating_threshold: 0.5
+  max_rating_threshold: 5.0
+  min_relevance_score: 0.0
+  max_relevance_score: 1.0
